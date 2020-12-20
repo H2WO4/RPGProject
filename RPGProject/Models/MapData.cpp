@@ -8,16 +8,19 @@
 
 #include "MapData.hpp"
 
-MapData::MapData(std::string name) {
+MapData::MapData(std::string name, TileSet * tileset) {
     // Save name
     this->name = name;
+    
+    // Save reference of tileset
+    this->tileset = tileset;
     
     // Read data from file
     std::ifstream infile(resourcePath() + name + ".map");
     
     // Extract header
-    int width, height, layers;
-    infile >> width >> height >> layers;
+    int layers, objectsCount;
+    infile >> width >> height >> layers >> objectsCount;
     
     // Create pointers
     layer1 = new int [width * height];
@@ -53,8 +56,19 @@ MapData::MapData(std::string name) {
         }
     }
     
-    // Read extra data
-    // TODO
+    // Read objects
+    for (int i = 0; i < objectsCount; i++) {
+        // Get type
+        std::string type;
+        infile >> type;
+        
+        // Check it to create object
+        if (type == "teleport") {
+            int x, y, targetMap, targetX, targetY;
+            infile >> x >> y >> targetMap >> targetX >> targetY;
+            objects.push_back(TeleportObject(x, y, targetMap, targetX, targetY));
+        }
+    }
 }
 
 MapData::~MapData() {
@@ -62,4 +76,35 @@ MapData::~MapData() {
     delete layer1;
     delete layer2;
     delete layer3;
+}
+
+bool MapData::isMoveAllowed(Move &move) {
+    // Get distination x and y
+    int x = move.getX(1.0f);
+    int y = move.getY(1.0f);
+    
+    // Check if it is in map area (don't allow to go outside)
+    if (x < 0 || y < 0 || x >= width || y >= height) {
+        return false;
+    }
+    
+    // Get tiles for this location
+    int tile1 = layer1[x + y * width];
+    int tile2 = layer2[x + y * width];
+    
+    // Check if tiles are allowed for move
+    return tileset->isMoveAllowed(tile1) && tileset->isMoveAllowed(tile2);
+}
+
+TeleportObject* MapData::getObject(int x, int y) {
+    // Iterate objects to find corresponding one
+    for (int i = 0; i < objects.size(); i++) {
+        TeleportObject * object = &objects[i];
+        if (object->x == x && object->y == y) {
+            return object;
+        }
+    }
+    
+    // No object found
+    return nullptr;
 }

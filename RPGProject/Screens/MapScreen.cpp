@@ -7,26 +7,27 @@
 //
 
 #include "MapScreen.hpp"
-#include "MapData.hpp"
-#include "ResourcePath.hpp"
 
-void MapScreen::loadMap(MapData data) {
-    // Load the tileset to display
-    map.load(resourcePath() + "tileset.png", sf::Vector2u(16, 16), data.layer1, data.layer2, data.layer3, 50, 50);
-    
-    // Load a music to play
-    if (music.openFromFile(resourcePath() + data.name + ".ogg")) {
-        // Play the music
-        music.setLoop(true);
-        music.play();
-    }
+void MapScreen::setMaps(MapData* maps) {
+    map.setMaps(maps);
+}
+
+void MapScreen::loadMap(int index) {
+    // Load the map
+    map.load(index);
 }
 
 void MapScreen::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    // Draw the map
     target.draw(map, states);
 }
 
 void MapScreen::update(float deltaTime) {
     // Send update to map
     map.update(deltaTime);
+}
+
+void MapScreen::resize(sf::RenderWindow &window) {
+    // Send resize to map
+    map.resize(window);
 }

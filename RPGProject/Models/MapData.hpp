@@ -13,17 +13,35 @@
 #include <fstream>
 
 #include "ResourcePath.hpp"
+#include "Move.hpp"
+#include "TileSet.hpp"
+#include "TeleportObject.hpp"
 
 class MapData {
-
-public:
+    
+private:
     std::string name;
+    int width;
+    int height;
+    
+    TileSet * tileset;
+    
     int* layer1;
     int* layer2;
     int* layer3;
     
-    MapData(std::string name);
+    std::vector<TeleportObject> objects;
+
+public:
+    MapData(std::string name, TileSet * tileset);
     ~MapData();
+    
+    bool isMoveAllowed(Move &move);
+    TeleportObject* getObject(int x, int y);
+    
+    friend class TileMap;
+    friend class MapScreen;
+    friend class Game;
     
 };
 

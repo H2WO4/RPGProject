@@ -10,8 +10,11 @@
 #define Player_hpp
 
 #include <SFML/Graphics.hpp>
+#include <cmath>
 
 #include "ResourcePath.hpp"
+#include "MapData.hpp"
+#include "Move.hpp"
 
 class Player : public sf::Drawable {
 
@@ -21,17 +24,23 @@ private:
     sf::Texture texture_animated;
     sf::RectangleShape shape;
     
+    Move* move;
+    
     int direction;
     bool animated;
+    int animation_part;
     int animation_step;
     float animation_time;
     
 public:
     Player();
+    ~Player();
     
-    sf::Vector2f getLocation();
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-    void update(float deltaTime);
+    void update(float deltaTime, MapData &map);
+    void forceStopAnimation();
+    
+    friend class TileMap;
     
 };
 

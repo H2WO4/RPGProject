@@ -10,8 +10,10 @@
 #define TileMap_hpp
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <algorithm>
 
+#include "MapData.hpp"
 #include "Player.hpp"
 
 class TileMap : public sf::Drawable, public sf::Transformable {
@@ -22,14 +24,22 @@ private:
     sf::VertexArray vertices3;
     sf::Texture tileset;
     sf::View view;
+    sf::Music music;
+    
+    MapData* maps;
     Player player;
+    int currentMap;
     
 public:
     TileMap();
     
-    bool load(const std::string& tileset, sf::Vector2u tileSize, const int* tiles1, const int* tiles2, const int* tiles3, unsigned int width, unsigned int height);
+    void setMaps(MapData* maps);
+    bool load(int index);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     void update(float deltaTime);
+    void initTeleport(TeleportObject* teleport);
+    
+    void resize(sf::RenderWindow &window);
 
 };
 

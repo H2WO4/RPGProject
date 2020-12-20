@@ -9,6 +9,8 @@
 #ifndef Game_hpp
 #define Game_hpp
 
+#include <string>
+
 #include "ResourcePath.hpp"
 #include "MapScreen.hpp"
 #include "MapData.hpp"
@@ -17,14 +19,18 @@ class Game {
 
 private:
     MapScreen screen;
+    TileSet* tilesets;
     MapData* maps;
     
 public:
     Game();
-    ~Game();
     
     void draw(sf::RenderTarget& target);
     void update(float deltaTime);
+    void resize(sf::RenderWindow &window);
+    
+    MapData* getMapByName(std::string name);
+    
 };
 
 #endif /* Game_hpp */

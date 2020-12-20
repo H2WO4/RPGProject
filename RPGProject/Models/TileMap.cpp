@@ -8,32 +8,36 @@
 
 #include "TileMap.hpp"
 
-TileMap::TileMap(): view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(640.0f, 480.0f)) {
-    // Zoom in
-    view.zoom(0.5f);
+TileMap::TileMap(): view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(320.0f, 240.0f)) {}
+
+void TileMap::setMaps(MapData* maps) {
+    this->maps = maps;
 }
 
-bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, const int* tiles1, const int* tiles2, const int* tiles3, unsigned int width, unsigned int height) {
+bool TileMap::load(int index) {
+    // Save current map index
+    currentMap = index;
+    
+    sf::Vector2u tileSize(16, 16);
+    
     // Load the tileset texture
-    if (!this->tileset.loadFromFile(tileset)) {
-        return false;
-    }
+    tileset.loadFromFile(resourcePath() + maps[currentMap].tileset->name + ".png");
     
     // Resize the vertex array to fit the level size
     vertices1.setPrimitiveType(sf::Quads);
     vertices2.setPrimitiveType(sf::Quads);
     vertices3.setPrimitiveType(sf::Quads);
-    vertices1.resize(width * height * 4);
-    vertices2.resize(width * height * 4);
-    vertices3.resize(width * height * 4);
+    vertices1.resize(maps[currentMap].width * maps[currentMap].height * 4);
+    vertices2.resize(maps[currentMap].width * maps[currentMap].height * 4);
+    vertices3.resize(maps[currentMap].width * maps[currentMap].height * 4);
     
     // Populate the vertex array, with one quad per tile
-    for (unsigned int i = 0; i < width; ++i) {
-        for (unsigned int j = 0; j < height; ++j) {
+    for (unsigned int i = 0; i < maps[currentMap].width; ++i) {
+        for (unsigned int j = 0; j < maps[currentMap].height; ++j) {
             // Get the current tile number
-            int tileNumber1 = std::max(tiles1[i + j * width] - 1, 0);
-            int tileNumber2 = std::max(tiles2[i + j * width] - 1, 0);
-            int tileNumber3 = std::max(tiles3[i + j * width] - 1, 0);
+            int tileNumber1 = std::max(maps[currentMap].layer1[i + j * maps[currentMap].width] - 1, 0);
+            int tileNumber2 = std::max(maps[currentMap].layer2[i + j * maps[currentMap].width] - 1, 0);
+            int tileNumber3 = std::max(maps[currentMap].layer3[i + j * maps[currentMap].width] - 1, 0);
             
             // Find its position in the tileset texture
             int tu1 = tileNumber1 % (this->tileset.getSize().x / tileSize.x);
@@ -44,9 +48,9 @@ bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, const int*
             int tv3 = tileNumber3 / (this->tileset.getSize().x / tileSize.x);
             
             // Get a pointer to the current tile's quad
-            sf::Vertex* quad1 = &vertices1[(i + j * width) * 4];
-            sf::Vertex* quad2 = &vertices2[(i + j * width) * 4];
-            sf::Vertex* quad3 = &vertices3[(i + j * width) * 4];
+            sf::Vertex* quad1 = &vertices1[(i + j * maps[currentMap].width) * 4];
+            sf::Vertex* quad2 = &vertices2[(i + j * maps[currentMap].width) * 4];
+            sf::Vertex* quad3 = &vertices3[(i + j * maps[currentMap].width) * 4];
             
             // Define its 4 corners
             quad1[0].position = sf::Vector2f(i * tileSize.x, j * tileSize.y);
@@ -78,6 +82,14 @@ bool TileMap::load(const std::string& tileset, sf::Vector2u tileSize, const int*
         }
     }
     
+    // Load a music to play
+    if (music.openFromFile(resourcePath() + maps[currentMap].name + ".ogg")) {
+        // Play the music
+        music.setLoop(true);
+        music.setLoopPoints(sf::Music::TimeSpan(sf::seconds(1.0f), sf::seconds(53.0f)));
+        music.play();
+    }
+    
     return true;
 }
 
@@ -104,8 +116,44 @@ void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 
 void TileMap::update(float deltaTime) {
     // Ask player to update
-    player.update(deltaTime);
+    player.update(deltaTime, maps[currentMap]);
+    
+    // Check for an script at player position
+    TeleportObject* object = maps[currentMap].getObject(player.location.x, player.location.y);
+    if (object != nullptr && !object->isRunning()) {
+        // Run script
+        object->setRunning();
+        
+        // For now only teleport is supported, but then object type will be checked
+        initTeleport(object);
+    }
+    
+    // Calculate position
+    sf::Vector2f viewSize = view.getSize();
+    sf::FloatRect mapSize = vertices1.getBounds();
+    sf::Vector2f playerPosition = player.shape.getPosition();
+    float x = std::min(std::max(float(viewSize.x) / 2.0f, float(playerPosition.x)), float(mapSize.width) - float(viewSize.x) / 2.0f);
+    float y = std::min(std::max(float(viewSize.y) / 2.0f, float(playerPosition.y)), float(mapSize.height) - float(viewSize.y) / 2.0f);
     
     // Update view with player position
-    view.setCenter(player.getLocation());
+    view.setCenter(sf::Vector2f(x, y));
+}
+
+void TileMap::initTeleport(TeleportObject* teleport) {
+    // Fade out current map
+    
+    // Load new map
+    load(teleport->targetMap);
+    player.forceStopAnimation();
+    player.location.x = teleport->targetX;
+    player.location.y = teleport->targetY;
+    
+    // Clear script
+    teleport->finish();
+}
+
+void TileMap::resize(sf::RenderWindow &window) {
+    // Calculate aspect ration
+    float ratio = float(window.getSize().x) / float(window.getSize().y);
+    view.setSize(ratio * 240.0f, 240.0f);
 }
