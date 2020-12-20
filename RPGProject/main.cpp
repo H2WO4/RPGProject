@@ -1,29 +1,19 @@
-
 //
-// Disclaimer:
-// ----------
+//  main.cpp
+//  RPGProject
 //
-// This code will work only if you selected window, graphics and audio.
-//
-// Note that the "Run Script" build phase will copy the required frameworks
-// or dylibs to your application bundle so you can execute it on any OS X
-// computer.
-//
-// Your resource files (images, sounds, fonts, ...) are also copied to your
-// application bundle. To get the path to these resources, use the helper
-// function `resourcePath()` from ResourcePath.hpp
+//  Created by Nathan FALLET on 19/12/2020.
+//  Copyright © 2020 Nathan FALLET. All rights reserved.
 //
 
-#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
-// Here is a small helper for you! Have a look.
 #include "ResourcePath.hpp"
+#include "Game.hpp"
 
-int main(int, char const**)
-{
+int main(int, char const**) {
     // Create the main window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+    sf::RenderWindow window(sf::VideoMode(640, 480), "RPG Project");
 
     // Set the Icon
     sf::Image icon;
@@ -32,37 +22,20 @@ int main(int, char const**)
     }
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
-    // Load a sprite to display
-    sf::Texture texture;
-    if (!texture.loadFromFile(resourcePath() + "cute_image.jpg")) {
-        return EXIT_FAILURE;
-    }
-    sf::Sprite sprite(texture);
-
-    // Create a graphical text to display
-    sf::Font font;
-    if (!font.loadFromFile(resourcePath() + "sansation.ttf")) {
-        return EXIT_FAILURE;
-    }
-    sf::Text text("Hello SFML", font, 50);
-    text.setFillColor(sf::Color::Black);
-
-    // Load a music to play
-    sf::Music music;
-    if (!music.openFromFile(resourcePath() + "nice_music.ogg")) {
-        return EXIT_FAILURE;
-    }
-
-    // Play the music
-    music.play();
+    // Create the game object
+    Game game;
+    
+    // Create the clock
+    sf::Clock clock;
 
     // Start the game loop
-    while (window.isOpen())
-    {
+    while (window.isOpen()) {
+        // Calculate delta time
+        float deltaTime = clock.restart().asSeconds();
+        
         // Process events
         sf::Event event;
-        while (window.pollEvent(event))
-        {
+        while (window.pollEvent(event)) {
             // Close window: exit
             if (event.type == sf::Event::Closed) {
                 window.close();
@@ -73,15 +46,15 @@ int main(int, char const**)
                 window.close();
             }
         }
+        
+        // Update game
+        game.update(deltaTime);
 
         // Clear screen
         window.clear();
 
-        // Draw the sprite
-        window.draw(sprite);
-
-        // Draw the string
-        window.draw(text);
+        // Draw
+        game.draw(window);
 
         // Update the window
         window.display();
