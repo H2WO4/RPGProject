@@ -15,6 +15,7 @@
 
 #include "MapData.hpp"
 #include "Player.hpp"
+#include "TextBox.hpp"
 
 class TileMap : public sf::Drawable, public sf::Transformable {
 
@@ -28,7 +29,9 @@ private:
     
     MapData* maps;
     Player player;
+    TextBox textBox;
     int currentMap;
+    bool freezePlayer;
     
 public:
     TileMap();
@@ -38,6 +41,7 @@ public:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     void update(float deltaTime);
     void initTeleport(TeleportObject* teleport);
+    void initTextBox(std::string text);
     
     void resize(sf::RenderWindow &window);
 

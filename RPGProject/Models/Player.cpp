@@ -44,36 +44,38 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(shape, states);
 }
 
-void Player::update(float deltaTime, MapData &map) {
+void Player::update(float deltaTime, MapData &map, bool canStartMoving) {
     // Check for a move
-    bool start_move = false;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Z) && move == nullptr) {
-        move = new Move(location.x, location.x, location.y, location.y - 1);
-        direction = 1;
-        start_move = true;
-    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q) && move == nullptr) {
-        move = new Move(location.x, location.x - 1, location.y, location.y);
-        direction = 2;
-        start_move = true;
-    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && move == nullptr) {
-        move = new Move(location.x, location.x, location.y, location.y + 1);
-        direction = 3;
-        start_move = true;
-    } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) && move == nullptr) {
-        move = new Move(location.x, location.x + 1, location.y, location.y);
-        direction = 0;
-        start_move = true;
-    }
-    
-    // If a move is initialized
-    if (start_move) {
-        // Start animation
-        animated = true;
+    if (canStartMoving) {
+        bool start_move = false;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Z) && move == nullptr) {
+            move = new Move(location.x, location.x, location.y, location.y - 1);
+            direction = 1;
+            start_move = true;
+        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q) && move == nullptr) {
+            move = new Move(location.x, location.x - 1, location.y, location.y);
+            direction = 2;
+            start_move = true;
+        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) && move == nullptr) {
+            move = new Move(location.x, location.x, location.y, location.y + 1);
+            direction = 3;
+            start_move = true;
+        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) && move == nullptr) {
+            move = new Move(location.x, location.x + 1, location.y, location.y);
+            direction = 0;
+            start_move = true;
+        }
         
-        // Check if entity can move
-        if (!map.isMoveAllowed(*move)) {
-            // Cancel if not
-            move->cancelMove();
+        // If a move is initialized
+        if (start_move) {
+            // Start animation
+            animated = true;
+            
+            // Check if entity can move
+            if (!map.isMoveAllowed(*move)) {
+                // Cancel if not
+                move->cancelMove();
+            }
         }
     }
     
@@ -81,14 +83,14 @@ void Player::update(float deltaTime, MapData &map) {
     if (animated) {
         // Update animation
         animation_time += deltaTime;
-        if (animation_time >= animation_duration) {
+        while (animation_time >= animation_duration) {
             animation_time -= animation_duration;
             animation_step++;
-            if (animation_step >= 3) {
-                animation_part = animation_part == 0 ? 1 : 0;
-                animation_step = 0;
-                animated = false;
-            }
+        }
+        if (animation_step >= 3) {
+            animation_part = animation_part == 0 ? 1 : 0;
+            animation_step = 0;
+            animated = false;
         }
         
         // Calculate new position

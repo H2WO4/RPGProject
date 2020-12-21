@@ -37,7 +37,7 @@ public:
     ~Player();
     
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-    void update(float deltaTime, MapData &map);
+    void update(float deltaTime, MapData &map, bool canStartMoving);
     void forceStopAnimation();
     
     friend class TileMap;

@@ -112,11 +112,17 @@ void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     
     // Draw the vertex array
     target.draw(vertices3, states);
+    
+    // Draw the text box
+    target.draw(textBox);
 }
 
 void TileMap::update(float deltaTime) {
     // Ask player to update
-    player.update(deltaTime, maps[currentMap]);
+    player.update(deltaTime, maps[currentMap], !freezePlayer);
+    
+    // Send update to textBox
+    textBox.update(deltaTime);
     
     // Check for an script at player position
     TeleportObject* object = maps[currentMap].getObject(player.location.x, player.location.y);
@@ -137,6 +143,15 @@ void TileMap::update(float deltaTime) {
     
     // Update view with player position
     view.setCenter(sf::Vector2f(x, y));
+    
+    // Calculate box position
+    float boxWidth = float(viewSize.x);
+    float boxHeight = 48.0f;
+    float boxX = x - boxWidth / 2.0f;
+    float boxY = y + float(viewSize.y) / 2.0f - boxHeight;
+    
+    // Update text box position
+    textBox.setRect(boxX, boxY, boxWidth, boxHeight);
 }
 
 void TileMap::initTeleport(TeleportObject* teleport) {
@@ -150,6 +165,14 @@ void TileMap::initTeleport(TeleportObject* teleport) {
     
     // Clear script
     teleport->finish();
+}
+
+void TileMap::initTextBox(std::string text) {
+    // Freeze player
+    freezePlayer = true;
+    
+    // Set text
+    textBox.setText(text);
 }
 
 void TileMap::resize(sf::RenderWindow &window) {
