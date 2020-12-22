@@ -8,7 +8,9 @@
 
 #include "TileMap.hpp"
 
-TileMap::TileMap(): view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(320.0f, 240.0f)) {}
+TileMap::TileMap(): view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(320.0f, 240.0f)) {
+    freezePlayer = false;
+}
 
 void TileMap::setMaps(MapData* maps) {
     this->maps = maps;
