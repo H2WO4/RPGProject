@@ -39,11 +39,13 @@ public:
     void setMaps(MapData* maps);
     bool load(int index);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+    void resize(sf::RenderWindow &window);
+    
+    void handle(sf::Keyboard::Key key);
     void update(float deltaTime);
     void initTeleport(Object* teleport);
+    void initScript(Object* script);
     void initTextBox(std::string text);
-    
-    void resize(sf::RenderWindow &window);
 
 };
 

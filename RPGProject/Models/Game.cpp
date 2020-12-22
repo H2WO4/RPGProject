@@ -43,6 +43,11 @@ void Game::resize(sf::RenderWindow &window) {
     screen.resize(window);
 }
 
+void Game::handle(sf::Keyboard::Key key) {
+    // Send handle to screen
+    screen.handle(key);
+}
+
 MapData* Game::getMapByName(std::string name) {
     // Iterate maps
     for (int i = 0; i < maps_count; i++) {

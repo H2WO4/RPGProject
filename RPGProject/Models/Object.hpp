@@ -33,9 +33,11 @@ private:
     
 public:
     // Main constructor
-    Object(int x, int y, std::string type);
+    Object();
+    ~Object();
     
     // Location
+    void setLocation(int x, int y);
     int getX();
     int getY();
     
@@ -48,11 +50,11 @@ public:
     void finish();
     
     // Teleport object
-    Object(int x, int y, Teleport teleport);
+    void setTeleport(Teleport teleport);
     Teleport* getTeleport();
     
     // Script object
-    Object(int x, int y, Script script);
+    void setScript(Script script);
     Script* getScript();
     
 };

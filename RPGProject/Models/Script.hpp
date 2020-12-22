@@ -11,7 +11,9 @@
 
 struct Script {
     
+    int id;
     
+    Script(int id);
     
 };
 

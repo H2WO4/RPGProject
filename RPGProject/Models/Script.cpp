@@ -7,3 +7,7 @@
 //
 
 #include "Script.hpp"
+
+Script::Script(int id) {
+    this->id = id;
+}

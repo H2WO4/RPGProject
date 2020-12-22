@@ -119,6 +119,30 @@ void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(textBox);
 }
 
+void TileMap::resize(sf::RenderWindow &window) {
+    // Calculate aspect ration
+    float ratio = float(window.getSize().x) / float(window.getSize().y);
+    view.setSize(ratio * 240.0f, 240.0f);
+}
+
+void TileMap::handle(sf::Keyboard::Key key) {
+    // Check which key is pressed
+    switch (key) {
+        // Validation
+        case sf::Keyboard::Enter:
+            // Check for textbox
+            if (textBox.pressEnter()) {
+                // Unfreeze player
+                freezePlayer = false;
+            }
+            break;
+            
+        // Else do nothing
+        default:
+            break;
+    }
+}
+
 void TileMap::update(float deltaTime) {
     // Ask player to update
     player.update(deltaTime, maps[currentMap], !freezePlayer);
@@ -134,8 +158,11 @@ void TileMap::update(float deltaTime) {
         
         // Check which kind of object it is
         if (object->getType() == "teleport") {
-            // Teleport object
+            // Teleport player
             initTeleport(object);
+        } else if (object->getType() == "script") {
+            // Launch script
+            initScript(object);
         }
     }
     
@@ -150,7 +177,7 @@ void TileMap::update(float deltaTime) {
     view.setCenter(sf::Vector2f(x, y));
     
     // Calculate box position
-    float boxWidth = float(viewSize.x);
+    float boxWidth = 320.0f;
     float boxHeight = 48.0f;
     float boxX = x - boxWidth / 2.0f;
     float boxY = y + float(viewSize.y) / 2.0f - boxHeight;
@@ -168,8 +195,26 @@ void TileMap::initTeleport(Object* teleport) {
     player.location.x = teleport->getTeleport()->targetX;
     player.location.y = teleport->getTeleport()->targetY;
     
-    // Clear script
+    // Clear teleport
     teleport->finish();
+}
+
+void TileMap::initScript(Object* script) {
+    // Freeze player
+    freezePlayer = true;
+    
+    // Execute correct script
+    switch (script->getScript()->id) {
+        case 1:
+            initTextBox("NATHAN: Tu n'as rien oublie ?");
+            break;
+    }
+    
+    // Unfreeze player
+    freezePlayer = false;
+    
+    // Clear script
+    script->finish();
 }
 
 void TileMap::initTextBox(std::string text) {
@@ -178,10 +223,4 @@ void TileMap::initTextBox(std::string text) {
     
     // Set text
     textBox.setText(text);
-}
-
-void TileMap::resize(sf::RenderWindow &window) {
-    // Calculate aspect ration
-    float ratio = float(window.getSize().x) / float(window.getSize().y);
-    view.setSize(ratio * 240.0f, 240.0f);
 }

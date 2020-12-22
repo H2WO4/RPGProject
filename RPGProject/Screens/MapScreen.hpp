@@ -24,6 +24,7 @@ public:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     void update(float deltaTime);
     void resize(sf::RenderWindow &window);
+    void handle(sf::Keyboard::Key key);
     
 };
 

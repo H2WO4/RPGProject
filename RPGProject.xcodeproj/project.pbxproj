@@ -20,6 +20,9 @@
 		6A7BC03F25924D7A00F319A3 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BC03D25924D7A00F319A3 /* Object.cpp */; };
 		6A7BC042259267FE00F319A3 /* Teleport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BC040259267FE00F319A3 /* Teleport.cpp */; };
 		6A7BC0452592686A00F319A3 /* Script.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BC0432592686900F319A3 /* Script.cpp */; };
+		6A7BC04825926DF000F319A3 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BC04625926DF000F319A3 /* Entity.cpp */; };
+		6A7BC04A25928FF700F319A3 /* textbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A7BC04925928FF700F319A3 /* textbox.png */; };
+		6A7BC04C2592916200F319A3 /* cursor.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A7BC04B2592916200F319A3 /* cursor.png */; };
 		6AAC96992590B24100A176AA /* pokemon_pixel_font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AAC96982590B23200A176AA /* pokemon_pixel_font.ttf */; };
 		6AAC969C2590D77E00A176AA /* TextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC969A2590D77E00A176AA /* TextBox.cpp */; };
 		6AE22024258F4AF10042BEA3 /* Move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6AE22022258F4AF10042BEA3 /* Move.cpp */; };
@@ -54,6 +57,10 @@
 		6A7BC041259267FE00F319A3 /* Teleport.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Teleport.hpp; sourceTree = "<group>"; };
 		6A7BC0432592686900F319A3 /* Script.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Script.cpp; sourceTree = "<group>"; };
 		6A7BC0442592686A00F319A3 /* Script.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Script.hpp; sourceTree = "<group>"; };
+		6A7BC04625926DF000F319A3 /* Entity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
+		6A7BC04725926DF000F319A3 /* Entity.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Entity.hpp; sourceTree = "<group>"; };
+		6A7BC04925928FF700F319A3 /* textbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = textbox.png; sourceTree = "<group>"; };
+		6A7BC04B2592916200F319A3 /* cursor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cursor.png; sourceTree = "<group>"; };
 		6AAC96982590B23200A176AA /* pokemon_pixel_font.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = pokemon_pixel_font.ttf; sourceTree = "<group>"; };
 		6AAC969A2590D77E00A176AA /* TextBox.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TextBox.cpp; sourceTree = "<group>"; };
 		6AAC969B2590D77E00A176AA /* TextBox.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextBox.hpp; sourceTree = "<group>"; };
@@ -115,26 +122,28 @@
 		6AE2201B258F3EF30042BEA3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				6A354C12258EA9CE00C94B6C /* Player.cpp */,
-				6A354C13258EA9CE00C94B6C /* Player.hpp */,
-				6AFE2A26258EAA9300000025 /* TileMap.cpp */,
-				6AFE2A27258EAA9300000025 /* TileMap.hpp */,
-				6A4E8F3A258EC3A500337E7B /* MapData.cpp */,
-				6A4E8F3B258EC3A500337E7B /* MapData.hpp */,
+				6A7BC04625926DF000F319A3 /* Entity.cpp */,
+				6A7BC04725926DF000F319A3 /* Entity.hpp */,
 				6AFE2A2B258EADCF00000025 /* Game.cpp */,
 				6AFE2A2C258EADCF00000025 /* Game.hpp */,
+				6A4E8F3A258EC3A500337E7B /* MapData.cpp */,
+				6A4E8F3B258EC3A500337E7B /* MapData.hpp */,
 				6AE22022258F4AF10042BEA3 /* Move.cpp */,
 				6AE22023258F4AF10042BEA3 /* Move.hpp */,
+				6A7BC03D25924D7A00F319A3 /* Object.cpp */,
+				6A7BC03E25924D7A00F319A3 /* Object.hpp */,
+				6A354C12258EA9CE00C94B6C /* Player.cpp */,
+				6A354C13258EA9CE00C94B6C /* Player.hpp */,
+				6A7BC0432592686900F319A3 /* Script.cpp */,
+				6A7BC0442592686A00F319A3 /* Script.hpp */,
+				6AFE2A26258EAA9300000025 /* TileMap.cpp */,
+				6AFE2A27258EAA9300000025 /* TileMap.hpp */,
 				6AE22025258F5CD80042BEA3 /* TileSet.cpp */,
 				6AE22026258F5CD80042BEA3 /* TileSet.hpp */,
 				6AAC969A2590D77E00A176AA /* TextBox.cpp */,
 				6AAC969B2590D77E00A176AA /* TextBox.hpp */,
-				6A7BC03D25924D7A00F319A3 /* Object.cpp */,
-				6A7BC03E25924D7A00F319A3 /* Object.hpp */,
 				6A7BC040259267FE00F319A3 /* Teleport.cpp */,
 				6A7BC041259267FE00F319A3 /* Teleport.hpp */,
-				6A7BC0432592686900F319A3 /* Script.cpp */,
-				6A7BC0442592686A00F319A3 /* Script.hpp */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -162,10 +171,12 @@
 		6AE2201E258F3F940042BEA3 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				6A7BC04B2592916200F319A3 /* cursor.png */,
 				6A354C06258EA3AA00C94B6C /* icon.png */,
 				6A4E8F32258EBC1800337E7B /* player.png */,
 				6A4E8F38258EC20900337E7B /* player_animated.png */,
 				6AFE2A29258EACCD00000025 /* tileset.png */,
+				6A7BC04925928FF700F319A3 /* textbox.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -258,10 +269,12 @@
 				6AE22031258FC7F90042BEA3 /* Route1.map in Resources */,
 				6AE2202B258F834F0042BEA3 /* PopolTown.ogg in Resources */,
 				6A4E8F45258ED72F00337E7B /* Route1.ogg in Resources */,
+				6A7BC04A25928FF700F319A3 /* textbox.png in Resources */,
 				6A4E8F42258ECDD600337E7B /* PopolTown.map in Resources */,
 				6A4E8F39258EC20A00337E7B /* player_animated.png in Resources */,
 				6A354C07258EA3AA00C94B6C /* icon.png in Resources */,
 				6A4E8F33258EBC1800337E7B /* player.png in Resources */,
+				6A7BC04C2592916200F319A3 /* cursor.png in Resources */,
 				6AFE2A2A258EACCD00000025 /* tileset.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -296,6 +309,7 @@
 			files = (
 				6A7BC0452592686A00F319A3 /* Script.cpp in Sources */,
 				6AE22027258F5CD80042BEA3 /* TileSet.cpp in Sources */,
+				6A7BC04825926DF000F319A3 /* Entity.cpp in Sources */,
 				6AE22024258F4AF10042BEA3 /* Move.cpp in Sources */,
 				6A7BC03F25924D7A00F319A3 /* Object.cpp in Sources */,
 				6A354C14258EA9CE00C94B6C /* Player.cpp in Sources */,

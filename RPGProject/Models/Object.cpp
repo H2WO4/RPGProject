@@ -9,14 +9,25 @@
 #include "Object.hpp"
 
 // Main constructor
-Object::Object(int x, int y, std::string type) {
-    this->x = x;
-    this->y = y;
-    this->type = type;
+Object::Object() {
     this->running = false;
 }
 
+Object::~Object() {
+    if (teleport != nullptr) {
+        delete teleport;
+    }
+    if (script != nullptr) {
+        delete script;
+    }
+}
+
 // Location
+void Object::setLocation(int x, int y) {
+    this->x = x;
+    this->y = y;
+}
+
 int Object::getX() {
     return x;
 }
@@ -44,7 +55,8 @@ void Object::finish() {
 }
 
 // Teleport object
-Object::Object(int x, int y, Teleport teleport) : Object::Object(x, y, "teleport") {
+void Object::setTeleport(Teleport teleport) {
+    this->type = "teleport";
     this->teleport = new Teleport(teleport);
 }
 
@@ -53,7 +65,8 @@ Teleport* Object::getTeleport() {
 }
 
 // Script object
-Object::Object(int x, int y, Script script) : Object::Object(x, y, "script") {
+void Object::setScript(Script script) {
+    this->type = "script";
     this->script = new Script(script);
 }
 

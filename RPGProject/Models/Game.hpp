@@ -28,6 +28,7 @@ public:
     void draw(sf::RenderTarget& target);
     void update(float deltaTime);
     void resize(sf::RenderWindow &window);
+    void handle(sf::Keyboard::Key key);
     
     MapData* getMapByName(std::string name);
     

@@ -23,6 +23,7 @@ private:
     std::string name;
     int width;
     int height;
+    int objectsCount;
     
     TileSet * tileset;
     
@@ -30,7 +31,7 @@ private:
     int* layer2;
     int* layer3;
     
-    std::vector<Object> objects;
+    Object* objects;
 
 public:
     MapData(std::string name, TileSet * tileset);
