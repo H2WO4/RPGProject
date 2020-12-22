@@ -40,7 +40,7 @@ public:
     bool load(int index);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     void update(float deltaTime);
-    void initTeleport(TeleportObject* teleport);
+    void initTeleport(Object* teleport);
     void initTextBox(std::string text);
     
     void resize(sf::RenderWindow &window);

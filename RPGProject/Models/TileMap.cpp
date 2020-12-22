@@ -127,13 +127,16 @@ void TileMap::update(float deltaTime) {
     textBox.update(deltaTime);
     
     // Check for an script at player position
-    TeleportObject* object = maps[currentMap].getObject(player.location.x, player.location.y);
+    Object* object = maps[currentMap].getObject(player.location.x, player.location.y);
     if (object != nullptr && !object->isRunning()) {
         // Run script
         object->setRunning();
         
-        // For now only teleport is supported, but then object type will be checked
-        initTeleport(object);
+        // Check which kind of object it is
+        if (object->getType() == "teleport") {
+            // Teleport object
+            initTeleport(object);
+        }
     }
     
     // Calculate position
@@ -156,14 +159,14 @@ void TileMap::update(float deltaTime) {
     textBox.setRect(boxX, boxY, boxWidth, boxHeight);
 }
 
-void TileMap::initTeleport(TeleportObject* teleport) {
+void TileMap::initTeleport(Object* teleport) {
     // Fade out current map
     
     // Load new map
-    load(teleport->targetMap);
+    load(teleport->getTeleport()->targetMap);
     player.forceStopAnimation();
-    player.location.x = teleport->targetX;
-    player.location.y = teleport->targetY;
+    player.location.x = teleport->getTeleport()->targetX;
+    player.location.y = teleport->getTeleport()->targetY;
     
     // Clear script
     teleport->finish();

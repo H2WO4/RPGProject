@@ -66,7 +66,7 @@ MapData::MapData(std::string name, TileSet * tileset) {
         if (type == "teleport") {
             int x, y, targetMap, targetX, targetY;
             infile >> x >> y >> targetMap >> targetX >> targetY;
-            objects.push_back(TeleportObject(x, y, targetMap, targetX, targetY));
+            objects.push_back(Object(x, y, Teleport(targetMap, targetX, targetY)));
         }
     }
 }
@@ -96,11 +96,11 @@ bool MapData::isMoveAllowed(Move &move) {
     return tileset->isMoveAllowed(tile1) && tileset->isMoveAllowed(tile2);
 }
 
-TeleportObject* MapData::getObject(int x, int y) {
+Object* MapData::getObject(int x, int y) {
     // Iterate objects to find corresponding one
     for (int i = 0; i < objects.size(); i++) {
-        TeleportObject * object = &objects[i];
-        if (object->x == x && object->y == y) {
+        Object * object = &objects[i];
+        if (object->getX() == x && object->getY() == y) {
             return object;
         }
     }
