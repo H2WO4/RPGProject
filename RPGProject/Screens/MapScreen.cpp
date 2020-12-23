@@ -36,3 +36,11 @@ void MapScreen::handle(sf::Keyboard::Key key) {
     // Send handle to map
     map.handle(key);
 }
+
+bool MapScreen::shouldChangeScreen() {
+    return false;
+}
+
+int MapScreen::getNextScreenID() {
+    return 2;
+}

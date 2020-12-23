@@ -16,7 +16,12 @@
 		6A4E8F39258EC20A00337E7B /* player_animated.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A4E8F38258EC20900337E7B /* player_animated.png */; };
 		6A4E8F3C258EC3A500337E7B /* MapData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A4E8F3A258EC3A500337E7B /* MapData.cpp */; };
 		6A4E8F42258ECDD600337E7B /* PopolTown.map in Resources */ = {isa = PBXBuildFile; fileRef = 6A4E8F41258EC8CD00337E7B /* PopolTown.map */; };
-		6A4E8F45258ED72F00337E7B /* Route1.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 6A4E8F44258ED69200337E7B /* Route1.ogg */; };
+		6A6AE223259378DF0044C774 /* Screen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A6AE221259378DF0044C774 /* Screen.cpp */; };
+		6A6AE22625937C6E0044C774 /* TitleScreen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A6AE22425937C6E0044C774 /* TitleScreen.cpp */; };
+		6A6AE2282593812A0044C774 /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A6AE2272593812A0044C774 /* title.png */; };
+		6A6AE22C259388070044C774 /* title.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 6A6AE22B259388070044C774 /* title.ogg */; };
+		6A6AE22F259388600044C774 /* Route1.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 6A6AE22D2593885F0044C774 /* Route1.ogg */; };
+		6A6AE230259388600044C774 /* PopolTown.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 6A6AE22E259388600044C774 /* PopolTown.ogg */; };
 		6A7BC03F25924D7A00F319A3 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BC03D25924D7A00F319A3 /* Object.cpp */; };
 		6A7BC042259267FE00F319A3 /* Teleport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BC040259267FE00F319A3 /* Teleport.cpp */; };
 		6A7BC0452592686A00F319A3 /* Script.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BC0432592686900F319A3 /* Script.cpp */; };
@@ -27,7 +32,6 @@
 		6AAC969C2590D77E00A176AA /* TextBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6AAC969A2590D77E00A176AA /* TextBox.cpp */; };
 		6AE22024258F4AF10042BEA3 /* Move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6AE22022258F4AF10042BEA3 /* Move.cpp */; };
 		6AE22027258F5CD80042BEA3 /* TileSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6AE22025258F5CD80042BEA3 /* TileSet.cpp */; };
-		6AE2202B258F834F0042BEA3 /* PopolTown.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 6AE2202A258F834A0042BEA3 /* PopolTown.ogg */; };
 		6AE22031258FC7F90042BEA3 /* Route1.map in Resources */ = {isa = PBXBuildFile; fileRef = 6AE2202D258FA24E0042BEA3 /* Route1.map */; };
 		6AFE2A28258EAA9300000025 /* TileMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6AFE2A26258EAA9300000025 /* TileMap.cpp */; };
 		6AFE2A2A258EACCD00000025 /* tileset.png in Resources */ = {isa = PBXBuildFile; fileRef = 6AFE2A29258EACCD00000025 /* tileset.png */; };
@@ -50,7 +54,14 @@
 		6A4E8F3A258EC3A500337E7B /* MapData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MapData.cpp; sourceTree = "<group>"; };
 		6A4E8F3B258EC3A500337E7B /* MapData.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MapData.hpp; sourceTree = "<group>"; };
 		6A4E8F41258EC8CD00337E7B /* PopolTown.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = PopolTown.map; sourceTree = "<group>"; };
-		6A4E8F44258ED69200337E7B /* Route1.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = Route1.ogg; sourceTree = "<group>"; };
+		6A6AE221259378DF0044C774 /* Screen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Screen.cpp; sourceTree = "<group>"; };
+		6A6AE222259378DF0044C774 /* Screen.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Screen.hpp; sourceTree = "<group>"; };
+		6A6AE22425937C6E0044C774 /* TitleScreen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TitleScreen.cpp; sourceTree = "<group>"; };
+		6A6AE22525937C6E0044C774 /* TitleScreen.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TitleScreen.hpp; sourceTree = "<group>"; };
+		6A6AE2272593812A0044C774 /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
+		6A6AE22B259388070044C774 /* title.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = title.ogg; sourceTree = "<group>"; };
+		6A6AE22D2593885F0044C774 /* Route1.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = Route1.ogg; sourceTree = "<group>"; };
+		6A6AE22E259388600044C774 /* PopolTown.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = PopolTown.ogg; sourceTree = "<group>"; };
 		6A7BC03D25924D7A00F319A3 /* Object.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Object.cpp; sourceTree = "<group>"; };
 		6A7BC03E25924D7A00F319A3 /* Object.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Object.hpp; sourceTree = "<group>"; };
 		6A7BC040259267FE00F319A3 /* Teleport.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Teleport.cpp; sourceTree = "<group>"; };
@@ -68,7 +79,6 @@
 		6AE22023258F4AF10042BEA3 /* Move.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Move.hpp; sourceTree = "<group>"; };
 		6AE22025258F5CD80042BEA3 /* TileSet.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TileSet.cpp; sourceTree = "<group>"; };
 		6AE22026258F5CD80042BEA3 /* TileSet.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TileSet.hpp; sourceTree = "<group>"; };
-		6AE2202A258F834A0042BEA3 /* PopolTown.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; path = PopolTown.ogg; sourceTree = "<group>"; };
 		6AE2202C258F976F0042BEA3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6AE2202D258FA24E0042BEA3 /* Route1.map */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = Route1.map; sourceTree = "<group>"; };
 		6AFE2A26258EAA9300000025 /* TileMap.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TileMap.cpp; sourceTree = "<group>"; };
@@ -153,6 +163,10 @@
 			children = (
 				6A354C0F258EA96C00C94B6C /* MapScreen.cpp */,
 				6A354C10258EA96C00C94B6C /* MapScreen.hpp */,
+				6A6AE221259378DF0044C774 /* Screen.cpp */,
+				6A6AE222259378DF0044C774 /* Screen.hpp */,
+				6A6AE22425937C6E0044C774 /* TitleScreen.cpp */,
+				6A6AE22525937C6E0044C774 /* TitleScreen.hpp */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -177,6 +191,7 @@
 				6A4E8F38258EC20900337E7B /* player_animated.png */,
 				6AFE2A29258EACCD00000025 /* tileset.png */,
 				6A7BC04925928FF700F319A3 /* textbox.png */,
+				6A6AE2272593812A0044C774 /* title.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -202,8 +217,9 @@
 		6AE22021258F3FB30042BEA3 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				6AE2202A258F834A0042BEA3 /* PopolTown.ogg */,
-				6A4E8F44258ED69200337E7B /* Route1.ogg */,
+				6A6AE22E259388600044C774 /* PopolTown.ogg */,
+				6A6AE22D2593885F0044C774 /* Route1.ogg */,
+				6A6AE22B259388070044C774 /* title.ogg */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -267,13 +283,15 @@
 			files = (
 				6AAC96992590B24100A176AA /* pokemon_pixel_font.ttf in Resources */,
 				6AE22031258FC7F90042BEA3 /* Route1.map in Resources */,
-				6AE2202B258F834F0042BEA3 /* PopolTown.ogg in Resources */,
-				6A4E8F45258ED72F00337E7B /* Route1.ogg in Resources */,
+				6A6AE2282593812A0044C774 /* title.png in Resources */,
+				6A6AE230259388600044C774 /* PopolTown.ogg in Resources */,
 				6A7BC04A25928FF700F319A3 /* textbox.png in Resources */,
 				6A4E8F42258ECDD600337E7B /* PopolTown.map in Resources */,
 				6A4E8F39258EC20A00337E7B /* player_animated.png in Resources */,
 				6A354C07258EA3AA00C94B6C /* icon.png in Resources */,
+				6A6AE22C259388070044C774 /* title.ogg in Resources */,
 				6A4E8F33258EBC1800337E7B /* player.png in Resources */,
+				6A6AE22F259388600044C774 /* Route1.ogg in Resources */,
 				6A7BC04C2592916200F319A3 /* cursor.png in Resources */,
 				6AFE2A2A258EACCD00000025 /* tileset.png in Resources */,
 			);
@@ -309,9 +327,11 @@
 			files = (
 				6A7BC0452592686A00F319A3 /* Script.cpp in Sources */,
 				6AE22027258F5CD80042BEA3 /* TileSet.cpp in Sources */,
+				6A6AE22625937C6E0044C774 /* TitleScreen.cpp in Sources */,
 				6A7BC04825926DF000F319A3 /* Entity.cpp in Sources */,
 				6AE22024258F4AF10042BEA3 /* Move.cpp in Sources */,
 				6A7BC03F25924D7A00F319A3 /* Object.cpp in Sources */,
+				6A6AE223259378DF0044C774 /* Screen.cpp in Sources */,
 				6A354C14258EA9CE00C94B6C /* Player.cpp in Sources */,
 				6A7BC042259267FE00F319A3 /* Teleport.cpp in Sources */,
 				6A354C11258EA96C00C94B6C /* MapScreen.cpp in Sources */,
