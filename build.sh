@@ -19,7 +19,7 @@ for i in `find ../RPGProject/Resources -iname '*'`; do cp $i resources; done
 
 # Build objects
 cd objects
-g++ -std=c++11 -g -fgnu-runtime -O -c ../sources/*.cpp
+g++ -std=c++11 -O -c ../sources/*.cpp
 
 # Link objects to a binary
 cd ..
