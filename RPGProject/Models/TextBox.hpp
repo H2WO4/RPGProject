@@ -20,6 +20,9 @@ private:
     sf::Font sfFont;
     sf::Text sfText;
     sf::RectangleShape background;
+    sf::RectangleShape cursor;
+    sf::Texture backgroundTexture;
+    sf::Texture cursorTexture;
     
     std::string text;
     bool animated;
@@ -34,6 +37,7 @@ public:
     void setRect(float x, float y, float width, float height);
     void setText(std::string newText);
     void clearText();
+    bool pressEnter();
     
 };
 

@@ -41,9 +41,9 @@ int main(int, char const**) {
                 window.close();
             }
 
-            // Escape pressed: exit
-            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
-                window.close();
+            // Key pressed
+            if (event.type == sf::Event::KeyPressed) {
+                game.handle(event.key.code);
             }
             
             // Window resized

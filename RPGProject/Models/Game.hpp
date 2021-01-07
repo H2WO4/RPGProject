@@ -12,24 +12,31 @@
 #include <string>
 
 #include "ResourcePath.hpp"
+#include "TitleScreen.hpp"
 #include "MapScreen.hpp"
 #include "MapData.hpp"
 
 class Game {
 
 private:
-    MapScreen screen;
+    int currentScreenID = 0;
+    TitleScreen titleScreen;
+    MapScreen mapScreen;
+    
     TileSet* tilesets;
     MapData* maps;
     
 public:
     Game();
     
+    Screen* getCurrentScreen();
+    void unloadCurrentScreen();
+    void loadNextScreen();
+    
     void draw(sf::RenderTarget& target);
     void update(float deltaTime);
     void resize(sf::RenderWindow &window);
-    
-    MapData* getMapByName(std::string name);
+    void handle(sf::Keyboard::Key key);
     
 };
 

@@ -19,7 +19,15 @@ TextBox::TextBox() {
     sfText.setFont(sfFont);
     sfText.setCharacterSize(16);
     sfText.setFillColor(sf::Color::Black);
-    background.setFillColor(sf::Color::White);
+    
+    // Background
+    backgroundTexture.loadFromFile(resourcePath() + "textbox.png");
+    background.setTexture(&backgroundTexture);
+    
+    // Cursor
+    cursorTexture.loadFromFile(resourcePath() + "cursor.png");
+    cursor.setTexture(&cursorTexture);
+    cursor.setSize(sf::Vector2f(16.0f, 16.0f));
 }
 
 void TextBox::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -30,6 +38,12 @@ void TextBox::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         
         // Draw the text on it
         target.draw(sfText);
+        
+        // Check if cursor is shown
+        if (progress == text.length()) {
+            // Draw cursor
+            target.draw(cursor);
+        }
     }
 }
 
@@ -58,9 +72,10 @@ void TextBox::update(float deltaTime) {
 
 void TextBox::setRect(float x, float y, float width, float height) {
     // Set position and size
-    sfText.setPosition(sf::Vector2f(x + 8, y + 4));
+    sfText.setPosition(sf::Vector2f(x + 12, y + 4));
     background.setPosition(sf::Vector2f(x, y));
     background.setSize(sf::Vector2f(width, height));
+    cursor.setPosition(sf::Vector2f(x + width - 32, y + height - 24));
 }
 
 void TextBox::setText(std::string newText) {
@@ -78,4 +93,15 @@ void TextBox::clearText() {
     
     // Stop any animation
     animated = false;
+}
+
+bool TextBox::pressEnter() {
+    // If text is full
+    if (progress == text.length()) {
+        clearText();
+        return true;
+    }
+    
+    // Not closing anything
+    return false;
 }

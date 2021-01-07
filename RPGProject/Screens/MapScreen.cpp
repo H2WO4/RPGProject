@@ -31,3 +31,16 @@ void MapScreen::resize(sf::RenderWindow &window) {
     // Send resize to map
     map.resize(window);
 }
+
+void MapScreen::handle(sf::Keyboard::Key key) {
+    // Send handle to map
+    map.handle(key);
+}
+
+bool MapScreen::shouldChangeScreen() {
+    return false;
+}
+
+int MapScreen::getNextScreenID() {
+    return 2;
+}

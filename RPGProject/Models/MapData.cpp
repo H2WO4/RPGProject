@@ -19,7 +19,7 @@ MapData::MapData(std::string name, TileSet * tileset) {
     std::ifstream infile(resourcePath() + name + ".map");
     
     // Extract header
-    int layers, objectsCount;
+    int layers;
     infile >> width >> height >> layers >> objectsCount;
     
     // Create pointers
@@ -57,16 +57,28 @@ MapData::MapData(std::string name, TileSet * tileset) {
     }
     
     // Read objects
+    objects = new Object[objectsCount];
     for (int i = 0; i < objectsCount; i++) {
         // Get type
         std::string type;
         infile >> type;
         
+        // Get location
+        int x, y;
+        infile >> x >> y;
+        objects[i].setLocation(x, y);
+        
         // Check it to create object
         if (type == "teleport") {
-            int x, y, targetMap, targetX, targetY;
-            infile >> x >> y >> targetMap >> targetX >> targetY;
-            objects.push_back(TeleportObject(x, y, targetMap, targetX, targetY));
+            // Teleport
+            int targetMap, targetX, targetY;
+            infile >> targetMap >> targetX >> targetY;
+            objects[i].setTeleport(Teleport(targetMap, targetX, targetY));
+        } else if (type == "script") {
+            // Script
+            int id;
+            infile >> id;
+            objects[i].setScript(Script(id));
         }
     }
 }
@@ -96,11 +108,11 @@ bool MapData::isMoveAllowed(Move &move) {
     return tileset->isMoveAllowed(tile1) && tileset->isMoveAllowed(tile2);
 }
 
-TeleportObject* MapData::getObject(int x, int y) {
+Object* MapData::getObject(int x, int y) {
     // Iterate objects to find corresponding one
-    for (int i = 0; i < objects.size(); i++) {
-        TeleportObject * object = &objects[i];
-        if (object->x == x && object->y == y) {
+    for (int i = 0; i < objectsCount; i++) {
+        Object * object = &objects[i];
+        if (object->getX() == x && object->getY() == y) {
             return object;
         }
     }

@@ -8,7 +8,9 @@
 
 #include "TileMap.hpp"
 
-TileMap::TileMap(): view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(320.0f, 240.0f)) {}
+TileMap::TileMap(): view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(320.0f, 240.0f)) {
+    freezePlayer = false;
+}
 
 void TileMap::setMaps(MapData* maps) {
     this->maps = maps;
@@ -117,6 +119,30 @@ void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(textBox);
 }
 
+void TileMap::resize(sf::RenderWindow &window) {
+    // Calculate aspect ration
+    float ratio = float(window.getSize().x) / float(window.getSize().y);
+    view.setSize(ratio * 240.0f, 240.0f);
+}
+
+void TileMap::handle(sf::Keyboard::Key key) {
+    // Check which key is pressed
+    switch (key) {
+        // Validation
+        case sf::Keyboard::Enter:
+            // Check for textbox
+            if (textBox.pressEnter()) {
+                // Unfreeze player
+                freezePlayer = false;
+            }
+            break;
+            
+        // Else do nothing
+        default:
+            break;
+    }
+}
+
 void TileMap::update(float deltaTime) {
     // Ask player to update
     player.update(deltaTime, maps[currentMap], !freezePlayer);
@@ -125,13 +151,19 @@ void TileMap::update(float deltaTime) {
     textBox.update(deltaTime);
     
     // Check for an script at player position
-    TeleportObject* object = maps[currentMap].getObject(player.location.x, player.location.y);
+    Object* object = maps[currentMap].getObject(player.location.x, player.location.y);
     if (object != nullptr && !object->isRunning()) {
         // Run script
         object->setRunning();
         
-        // For now only teleport is supported, but then object type will be checked
-        initTeleport(object);
+        // Check which kind of object it is
+        if (object->getType() == "teleport") {
+            // Teleport player
+            initTeleport(object);
+        } else if (object->getType() == "script") {
+            // Launch script
+            initScript(object);
+        }
     }
     
     // Calculate position
@@ -145,7 +177,7 @@ void TileMap::update(float deltaTime) {
     view.setCenter(sf::Vector2f(x, y));
     
     // Calculate box position
-    float boxWidth = float(viewSize.x);
+    float boxWidth = 320.0f;
     float boxHeight = 48.0f;
     float boxX = x - boxWidth / 2.0f;
     float boxY = y + float(viewSize.y) / 2.0f - boxHeight;
@@ -154,17 +186,35 @@ void TileMap::update(float deltaTime) {
     textBox.setRect(boxX, boxY, boxWidth, boxHeight);
 }
 
-void TileMap::initTeleport(TeleportObject* teleport) {
+void TileMap::initTeleport(Object* teleport) {
     // Fade out current map
     
     // Load new map
-    load(teleport->targetMap);
+    load(teleport->getTeleport()->targetMap);
     player.forceStopAnimation();
-    player.location.x = teleport->targetX;
-    player.location.y = teleport->targetY;
+    player.location.x = teleport->getTeleport()->targetX;
+    player.location.y = teleport->getTeleport()->targetY;
+    
+    // Clear teleport
+    teleport->finish();
+}
+
+void TileMap::initScript(Object* script) {
+    // Freeze player
+    freezePlayer = true;
+    
+    // Execute correct script
+    switch (script->getScript()->id) {
+        case 1:
+            initTextBox("NATHAN: Tu n'as rien oublie ?");
+            break;
+    }
+    
+    // Unfreeze player
+    freezePlayer = false;
     
     // Clear script
-    teleport->finish();
+    script->finish();
 }
 
 void TileMap::initTextBox(std::string text) {
@@ -173,10 +223,4 @@ void TileMap::initTextBox(std::string text) {
     
     // Set text
     textBox.setText(text);
-}
-
-void TileMap::resize(sf::RenderWindow &window) {
-    // Calculate aspect ration
-    float ratio = float(window.getSize().x) / float(window.getSize().y);
-    view.setSize(ratio * 240.0f, 240.0f);
 }

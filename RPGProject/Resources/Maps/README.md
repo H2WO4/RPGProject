@@ -23,3 +23,4 @@ Finally objects.
 | Object type | Description | Properties |
 | ------------- | ------------- | ------------ |
 | teleport | Teleport player to another location | `<map> <x> <y>` |
+| script | Run a script | `<id>` |

@@ -15,7 +15,7 @@
 #include "ResourcePath.hpp"
 #include "Move.hpp"
 #include "TileSet.hpp"
-#include "TeleportObject.hpp"
+#include "Object.hpp"
 
 class MapData {
     
@@ -23,6 +23,7 @@ private:
     std::string name;
     int width;
     int height;
+    int objectsCount;
     
     TileSet * tileset;
     
@@ -30,14 +31,14 @@ private:
     int* layer2;
     int* layer3;
     
-    std::vector<TeleportObject> objects;
+    Object* objects;
 
 public:
     MapData(std::string name, TileSet * tileset);
     ~MapData();
     
     bool isMoveAllowed(Move &move);
-    TeleportObject* getObject(int x, int y);
+    Object* getObject(int x, int y);
     
     friend class TileMap;
     friend class MapScreen;
